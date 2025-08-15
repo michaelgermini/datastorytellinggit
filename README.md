@@ -1,40 +1,55 @@
-## Dashboard & Générateur de Rapports Visuels
+## Dashboard & Visual Report Generator
 
-Application Streamlit permettant de téléverser un CSV, explorer les données, afficher des graphiques et générer un rapport HTML/PDF via Jinja2 + WeasyPrint.
+Streamlit application to upload a CSV, explore data, display charts, and generate an HTML/PDF report via Jinja2 + WeasyPrint.
+
+### Live demo
+- [data-storytelling-git.streamlit.app](https://data-storytelling-git.streamlit.app/)
 
 ### Installation
 
-1) Créer un venv (recommandé):
+1) Create a virtual environment (recommended):
 ```powershell
 python -m venv .venv
 . .venv\Scripts\Activate.ps1
 ```
-2) Installer les dépendances:
+2) Install dependencies:
 ```powershell
 pip install -r requirements.txt
 ```
 
-Si WeasyPrint pose problème sous Windows, assurez-vous d’avoir les outils MSVC. Les wheels récents (> 61) incluent les binaires nécessaires. Consultez la documentation WeasyPrint si besoin.
+If WeasyPrint causes issues on Windows, make sure MSVC tools are available. Recent wheels (> 61) include the required binaries. See WeasyPrint’s documentation if needed.
 
-### Lancer l’application
+### Run the app
 ```powershell
 streamlit run app.py
 ```
 
-### Utilisation
-- Téléversez un fichier CSV (idéalement avec une colonne date).
-- Choisissez la période d’analyse.
-- Visualisez les tableaux et graphiques.
-- Générez le rapport HTML ou PDF.
+### Usage
+- Upload a CSV file (ideally with a date column).
+- Choose the analysis period.
+- View summary tables and charts.
+- Generate the report as HTML or PDF.
 
 ### Templates
-- Déposez vos `.j2` dans `templates/`.
-- Un template par défaut est généré si aucun n’est présent.
+- Drop your `.j2` files into `templates/`.
+- A default template is generated if none is present.
 
 ### Structure
-- `app.py`: app Streamlit + logique d’analyse et de rendu
-- `templates/`: templates Jinja2
-- `assets/report.css`: styles du rapport
-- `reports/`: sorties (si besoin)
+- `app.py`: Streamlit app + analysis and rendering logic
+- `templates/`: Jinja2 templates
+- `assets/report.css`: report styles
+- `reports/`: outputs (optional)
 
+### Deploy to Streamlit Community Cloud
+- Push is already set up to GitHub: [`michaelgermini/datastorytellinggit`](https://github.com/michaelgermini/datastorytellinggit)
+- Steps:
+  1) Go to Streamlit Community Cloud and click “New app”.
+  2) Select repo: `michaelgermini/datastorytellinggit`
+  3) Branch: `main`
+  4) Main file path: `app.py`
+  5) Deploy.
+- Notes:
+  - `requirements.txt` is included; build should resolve automatically.
+  - PDF generation uses WeasyPrint if native libs are available; otherwise a fallback (xhtml2pdf) is used.
+  - A sample CSV is bundled and auto-loaded on startup; you can upload your own CSV from the sidebar.
 
