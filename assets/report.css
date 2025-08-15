@@ -1,0 +1,9 @@
+body { font-family: Inter, Arial, sans-serif; color: #1a1a1a; background: #fff; }
+h1 { font-size: 24px; margin-bottom: 4px; }
+h2 { font-size: 18px; margin-top: 16px; }
+.kpis { margin: 12px 0; }
+table { border-collapse: collapse; width: 100%; }
+th, td { border: 1px solid #e5e7eb; padding: 6px 8px; font-size: 12px; }
+th { background: #f9fafb; }
+img { border: 1px solid #eee; border-radius: 6px; }
+

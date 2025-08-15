@@ -1,0 +1,72 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{{ title }}</title>
+  <link rel="stylesheet" href="{{ stylesheet_path }}" />
+  <style>
+    /* Fallback minimal CSS if stylesheet missing */
+    body { font-family: Arial, sans-serif; margin: 24px; }
+    h1, h2 { color: #222; }
+    .kpis { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+    .kpi { background: #f4f6f8; padding: 12px; border-radius: 6px; }
+    table { border-collapse: collapse; width: 100%; margin-top: 12px; }
+    th, td { border: 1px solid #ddd; padding: 6px 8px; font-size: 12px; }
+    th { background: #fafafa; text-align: left; }
+    img { max-width: 100%; height: auto; }
+  </style>
+  <meta name="generator" content="Streamlit+Jinja2" />
+  <meta name="created" content="{{ generated_at }}" />
+</head>
+<body>
+  <h1>{{ title }}</h1>
+  <p>Période: {{ start_date }} → {{ end_date }}</p>
+  <h2>Résumé</h2>
+  {% if kpis and kpis.metric %}
+  <div class="kpis">
+    <div class="kpi"><strong>Metric</strong><br/>{{ kpis.metric }}</div>
+    <div class="kpi"><strong>Somme</strong><br/>{{ '%.2f'|format(kpis.sum) }}</div>
+    <div class="kpi"><strong>Moyenne</strong><br/>{{ '%.2f'|format(kpis.mean) }}</div>
+    <div class="kpi"><strong>Min/Max</strong><br/>{{ '%.2f'|format(kpis.min) }} / {{ '%.2f'|format(kpis.max) }}</div>
+  </div>
+  {% else %}
+  <p>Aucun KPI numérique détecté.</p>
+  {% endif %}
+
+  <h2>Graphiques</h2>
+  {% for name, b64 in images.items() %}
+    <div>
+      <h3>{{ name }}</h3>
+      <img src="data:image/png;base64,{{ b64 }}" alt="{{ name }}" />
+    </div>
+  {% endfor %}
+
+  <h2>Tableaux</h2>
+  {% if tables.summary %}
+  <table>
+    <thead>
+      <tr>
+        {% for key in tables.summary[0].keys() %}
+        <th>{{ key }}</th>
+        {% endfor %}
+      </tr>
+    </thead>
+    <tbody>
+      {% for row in tables.summary %}
+      <tr>
+        {% for value in row.values() %}
+        <td>{{ value }}</td>
+        {% endfor %}
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% endif %}
+
+  <footer style="margin-top:24px; font-size:12px; color:#666;">
+    Généré le {{ generated_at }}
+  </footer>
+</body>
+</html>
